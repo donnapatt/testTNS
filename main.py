@@ -1,6 +1,5 @@
 import cv2
-import PlaywithPic as pp
-import white_dot as wd
+import Detection as dt
 import numpy as np
 
 
@@ -19,7 +18,7 @@ kernel = np.ones((3,3),np.uint8)
 ker_f_dila = np.ones((3,3),np.uint8)
 #############################################
 '''
-ori = cv2.imread('19.jpg',1)
+ori = cv2.imread('8.jpg',1)
 '''
 threshold value
 '''
@@ -33,22 +32,22 @@ img = cv2.cvtColor(ori,cv2.COLOR_BGR2GRAY)
 '''
 use gamma correction to adjust black dot
 '''
-ad = pp.adjust_gamma(img,1.3)
+ad = dt.adjust_gamma(img,1.3)
 # ad = adjust_gamma(ad,2)
 '''
 structure element
 '''
-# for black
-kernel = np.ones((2,2),np.uint8)
-ker_f_dila = np.ones((5,5),np.uint8)
-# # for white
-# kernel = np.ones((3,3),np.uint8)
-# ker_f_dila = np.ones((3,3),np.uint8)
+# # for black
+# kernel = np.ones((2,2),np.uint8)
+# ker_f_dila = np.ones((5,5),np.uint8)
+# for white
+kernel = np.ones((3,3),np.uint8)
+ker_f_dila = np.ones((3,3),np.uint8)
 '''
 thresholding by using threshold value above
 '''
-ret,thresh = cv2.threshold(img, t_val, 255, cv2.THRESH_BINARY)
-# thresh = wd.multi_thresh(img,140,240,0,255,0)
+# ret,thresh = cv2.threshold(img, t_val, 255, cv2.THRESH_BINARY)
+thresh = dt.multi_thresh(img,140,240,0,255,0)
 closing = cv2.morphologyEx(thresh, cv2.MORPH_CLOSE, kernel)
 opening = cv2.morphologyEx(closing, cv2.MORPH_OPEN, kernel)
 ret,inv_open = cv2.threshold(opening, 127, 255, cv2.THRESH_BINARY_INV)
@@ -57,7 +56,7 @@ inv_open = cv2.dilate(inv_open,ker_f_dila,iterations = 1)
 write circle
 '''
 output = cv2.connectedComponentsWithStats(inv_open,8,cv2.CV_32S)
-pp.write_circle(output,ori)
+dt.write_circle(output,ori)
 '''
 show image
 '''

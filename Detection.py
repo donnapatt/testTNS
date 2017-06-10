@@ -1,7 +1,6 @@
 import cv2
 import numpy as np
 import copy
-import matplotlib.pyplot as plt
 
 # function gamma correction
 def adjust_gamma(image, gamma=1.0):
@@ -43,3 +42,16 @@ def write_circle(output,ori):
     for i in output[3]:
         if (output[3].tolist()).index(i.tolist()) not in ind:
             cv2.circle(ori, (int(i[0]), int(i[1])), 20, (0, 0, 255), 2)
+
+def multi_thresh(img,low,mid,fst,sec,thd):
+    height,width = img.shape[:2]
+    ret = copy.copy(img)
+    for i in range(height):
+        for j in range(width):
+            if img[i][j] <= low:
+                ret[i][j] = fst
+            elif img[i][j]>low and img[i][j]<=mid:
+                ret[i][j] = sec
+            else:
+                ret[i][j] = thd
+    return ret
