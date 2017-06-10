@@ -2,8 +2,8 @@ import cv2
 import os
 
 cap = cv2.VideoCapture(0)
-# os.system('C:\\Users\\DP\\Desktop\\LED_off.bat')
-n=8
+os.system('C:\\Users\\DP\\Desktop\\LED_off.bat')
+n=19
 while True:
     ret, orig = cap.read()
     copy1 = cv2.cvtColor(orig, cv2.COLOR_BGR2GRAY)
