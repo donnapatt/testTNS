@@ -41,7 +41,7 @@ def write_circle(output,ori):
     print('centroid', output[3])
     for i in output[3]:
         if (output[3].tolist()).index(i.tolist()) not in ind:
-            cv2.circle(ori, (int(i[0]), int(i[1])), 20, (0, 0, 255), 2)
+            cv2.circle(ori, (int(i[0]), int(i[1])), 20, (255, 255, 255), 2)
 
 def multi_thresh(img,low,mid,fst,sec,thd):
     height,width = img.shape[:2]
